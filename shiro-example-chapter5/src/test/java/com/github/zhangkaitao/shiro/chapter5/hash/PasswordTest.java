@@ -36,7 +36,7 @@ public class PasswordTest extends BaseTest {
         String salt1 = username;
         String salt2 = new SecureRandomNumberGenerator().nextBytes().toHex();
         int hashIterations = 2;
-
+        salt2 = "0072273a5d87322163795118fdd7c45e";
         SimpleHash hash = new SimpleHash(algorithmName, password, salt1 + salt2, hashIterations);
         String encodedPassword = hash.toHex();
         System.out.println(salt2);

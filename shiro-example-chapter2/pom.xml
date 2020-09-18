@@ -38,9 +38,5 @@
             <artifactId>druid</artifactId>
             <version>0.2.23</version>
         </dependency>
-
-
     </dependencies>
-
-
 </project>
