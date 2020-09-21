@@ -14,32 +14,15 @@
     <artifactId>shiro-example</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.8.0-beta4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.8.0-beta4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.13.3</version>
-        </dependency>
 
-    </dependencies>
     <modules>
         <module>shiro-example-chapter2</module>
         <module>shiro-example-chapter3</module>
         <module>shiro-example-chapter4</module>
         <module>shiro-example-chapter5</module>
         <module>shiro-example-chapter6</module>
-        <!--<module>shiro-example-chapter7</module>
-        <module>shiro-example-chapter8</module>
+        <module>shiro-example-chapter7</module>
+        <!--<module>shiro-example-chapter8</module>
         <module>shiro-example-chapter9</module>
         <module>shiro-example-chapter10</module>
         <module>shiro-example-chapter11</module>

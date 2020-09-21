@@ -37,6 +37,7 @@ public class LoginServlet extends HttpServlet {
         token.setRememberMe(true);
         try {
             subject.login(token);
+            req.getSession().setAttribute("subject",subject);
         } catch (UnknownAccountException e) {
             error = "用户名/密码错误";
         } catch (IncorrectCredentialsException e) {
