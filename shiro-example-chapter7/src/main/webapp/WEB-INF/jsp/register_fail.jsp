@@ -3,7 +3,7 @@
 <head>
     <title>注册失败</title>
     <style>.error{color:red;}</style>
-    <meta http-equiv="refresh" content="5;url=${pageContext.request.contextPath}/register">
+    <meta http-equiv="refresh" content="5;url=${pageContext.request.contextPath}/showRegister">
 </head>
 <body>
 

@@ -6,12 +6,14 @@ import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * <p>User: Zhang Kaitao
  * <p>Date: 14-1-28
  * <p>Version: 1.0
  */
+@SpringBootTest
 public class UserRealmTest extends BaseTest {
 
     public static final String CONFIG_FILE = "classpath:shiro-jdbc.ini";

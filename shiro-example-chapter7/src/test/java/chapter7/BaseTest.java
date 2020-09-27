@@ -1,8 +1,7 @@
 package chapter7;
 
-import entity.Permission;
-import entity.Role;
-import entity.User;
+import chapter7.service.*;
+import chapter7.entity.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.IniSecurityManagerFactory;
@@ -11,19 +10,25 @@ import org.apache.shiro.util.Factory;
 import org.apache.shiro.util.ThreadContext;
 import org.junit.After;
 import org.junit.Before;
-import service.*;
-import util.JdbcTemplateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * <p>User: Zhang Kaitao
  * <p>Date: 14-1-28
  * <p>Version: 1.0
  */
+@SpringBootTest
 public abstract class BaseTest {
-
-    protected PermissionService permissionService = new PermissionServiceImpl();
-    protected RoleService roleService = new RoleServiceImpl();
-    protected UserService userService = new UserServiceImpl();
+    @Autowired
+    protected PermissionService permissionServiceImpl;
+    @Autowired
+    protected RoleService roleServiceImpl;
+    @Autowired
+    protected UserService userServiceImpl;
+    @Autowired
+    private JdbcTemplate JdbcTemplate;
 
     protected String password = "123";
 
@@ -37,40 +42,36 @@ public abstract class BaseTest {
 
     @Before
     public void setUp() {
-        JdbcTemplateUtils.jdbcTemplate().update("delete from sys_users");
-        JdbcTemplateUtils.jdbcTemplate().update("delete from sys_roles");
-        JdbcTemplateUtils.jdbcTemplate().update("delete from sys_permissions");
-        JdbcTemplateUtils.jdbcTemplate().update("delete from sys_users_roles");
-        JdbcTemplateUtils.jdbcTemplate().update("delete from sys_roles_permissions");
-
+        JdbcTemplate.update("delete from sys_users");
+        JdbcTemplate.update("delete from sys_roles");
+        JdbcTemplate.update("delete from sys_permissions");
+        JdbcTemplate.update("delete from sys_users_roles");
+        JdbcTemplate.update("delete from sys_roles_permissions");
 
         //1、新增权限
         p1 = new Permission("user:*", "用户模块", Boolean.TRUE);
         p2 = new Permission("menu:*", "菜单模块", Boolean.TRUE);
-        permissionService.createPermission(p1);
-        permissionService.createPermission(p2);
+        permissionServiceImpl.createPermission(p1);
+        permissionServiceImpl.createPermission(p2);
 
         //2、新增角色
         r1 = new Role("admin", "管理员", Boolean.TRUE);
 
-        roleService.createRole(r1);
+        roleServiceImpl.createRole(r1);
 
         //3、关联角色-权限
-        roleService.correlationPermissions(r1.getId(), p1.getId());
-        roleService.correlationPermissions(r1.getId(), p2.getId());
-
+        roleServiceImpl.correlationPermissions(r1.getId(), p1.getId());
+        roleServiceImpl.correlationPermissions(r1.getId(), p2.getId());
 
         //4、新增用户
         u1 = new User("zhang", password);
         u2 = new User("wang", password);
 
-
-        userService.createUser(u1);
-        userService.createUser(u2);
+        userServiceImpl.createUser(u1);
+        userServiceImpl.createUser(u2);
 
         //5、关联用户-角色
-        userService.correlationRoles(u1.getId(), r1.getId());
-
+        userServiceImpl.correlationRoles(u1.getId(), r1.getId());
     }
 
 
