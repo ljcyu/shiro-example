@@ -1,7 +1,6 @@
 package chapter7.service;
 
 import chapter7.BaseTest;
-import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.Set;
@@ -26,31 +25,31 @@ public class ServiceTest extends BaseTest {
 
         Set<String> permissions = userServiceImpl.findPermissions(u1.getUsername());
         assertEquals(2, permissions.size());
-        Assert.assertTrue(permissions.contains(p2.getPermission()));
+        assertTrue(permissions.contains(p2.getPermission()));
 
         //wang
         roles = userServiceImpl.findRoles(u2.getUsername());
-        Assert.assertEquals(0, roles.size());
+       assertEquals(0, roles.size());
         permissions = userServiceImpl.findPermissions(u2.getUsername());
-        Assert.assertEquals(0, permissions.size());
+        assertEquals(0, permissions.size());
 
 
         //解除 admin-menu:update关联
         roleServiceImpl.uncorrelationPermissions(r1.getId(), p2.getId());
         permissions = userServiceImpl.findPermissions(u1.getUsername());
-        Assert.assertEquals(1, permissions.size());
-        Assert.assertFalse(permissions.contains(p2.getPermission()));
+        assertEquals(1, permissions.size());
+        assertFalse(permissions.contains(p2.getPermission()));
 
 
         //删除一个permission
         permissionServiceImpl.deletePermission(p2.getId());
         permissions = userServiceImpl.findPermissions(u1.getUsername());
-        Assert.assertEquals(1, permissions.size());
+        assertEquals(1, permissions.size());
 
         //解除 zhang-admin关联
         userServiceImpl.uncorrelationRoles(u1.getId(), r1.getId());
         roles = userServiceImpl.findRoles(u1.getUsername());
-        Assert.assertEquals(0, roles.size());
+        assertEquals(0, roles.size());
 
 
     }

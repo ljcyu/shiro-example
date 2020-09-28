@@ -34,11 +34,14 @@ public abstract class BaseTest {
 
     protected Permission p1;
     protected Permission p2;
+    protected Permission p3;
 
     protected Role r1;
+    protected Role r2;
 
     protected User u1;
     protected User u2;
+    protected User u3;
 
     @Before
     public void setUp() {
@@ -51,27 +54,36 @@ public abstract class BaseTest {
         //1、新增权限
         p1 = new Permission("user:*", "用户模块", Boolean.TRUE);
         p2 = new Permission("menu:*", "菜单模块", Boolean.TRUE);
+        p2 = new Permission("test:list", "测试权限", Boolean.TRUE);
+
         permissionServiceImpl.createPermission(p1);
         permissionServiceImpl.createPermission(p2);
+        permissionServiceImpl.createPermission(p3);
 
         //2、新增角色
         r1 = new Role("admin", "管理员", Boolean.TRUE);
+        r2 = new Role("test", "测试权限", Boolean.TRUE);
 
         roleServiceImpl.createRole(r1);
+        roleServiceImpl.createRole(r2);
 
         //3、关联角色-权限
         roleServiceImpl.correlationPermissions(r1.getId(), p1.getId());
         roleServiceImpl.correlationPermissions(r1.getId(), p2.getId());
+        roleServiceImpl.correlationPermissions(r2.getId(), p3.getId());
 
         //4、新增用户
         u1 = new User("zhang", password);
         u2 = new User("wang", password);
+        u3 = new User("liu", password);
 
         userServiceImpl.createUser(u1);
         userServiceImpl.createUser(u2);
+        userServiceImpl.createUser(u3);
 
         //5、关联用户-角色
         userServiceImpl.correlationRoles(u1.getId(), r1.getId());
+        userServiceImpl.correlationRoles(u3.getId(), r2.getId());
     }
 
 

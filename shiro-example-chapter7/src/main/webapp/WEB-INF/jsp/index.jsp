@@ -21,8 +21,8 @@
 <a href="${pageContext.request.contextPath}/role">角色授权 roles[admin]</a><br/>
 <a href="${pageContext.request.contextPath}/permission">权限授权 perms["user:create"]</a><br/>
 <hr width="30%" align="left" color="green" class="divider">
-使用shiro标签后<br>
-登录后才会出现：<shiro:user>
+<p class="h3">使用shiro标签后</p>
+    登录后才会出现：<shiro:user>
     欢迎[<shiro:principal/>]登录，<a href="${pageContext.request.contextPath}/logout">注销</a><br/>
 </shiro:user>
 授权后才会出现：<shiro:authenticated>
@@ -34,6 +34,15 @@
 有user:create权限才会出现：<shiro:hasPermission name="user:create">
 <a href="${pageContext.request.contextPath}/permission">权限授权 perms["user:create"]</a><br/>
 </shiro:hasPermission>
+<hr width="30%" align="left" color="green" class="divider">
+    <p class="h3">action中使用shiro注释，liu有以下权限</p>
+    <div class="list-group">
+    <a class="list-group-item" href="${pageContext.request.contextPath}/annotation/requires_guest">@RequiresGuest</a><br/>
+    <a class="list-group-item" href="${pageContext.request.contextPath}/annotation/requires_authentication">@RequiresAuthentication</a><br/>
+    <a class="list-group-item" href="${pageContext.request.contextPath}/annotation/requires_user">@RequiresUser</a><br/>
+    <a class="list-group-item" href="${pageContext.request.contextPath}/annotation/requires_roles">@RequiresRoles("test")</a><br/>
+    <a class="list-group-item" href="${pageContext.request.contextPath}/annotation/requires_perms">@RequiresPermissions("test:list")</a><br/>
+    </div>
 </div>
 </body>
 </html>
