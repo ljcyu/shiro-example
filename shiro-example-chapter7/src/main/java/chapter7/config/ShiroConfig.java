@@ -22,6 +22,7 @@ public class ShiroConfig {
         return userRealm;
     }
 
+
     @Bean
     public RetryLimitHashedCredentialsMatcher credentialsMatcher() {
         RetryLimitHashedCredentialsMatcher credentialsMatcher = new RetryLimitHashedCredentialsMatcher();

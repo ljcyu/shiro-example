@@ -1,5 +1,6 @@
 package chapter7.credentials;
 
+import chapter7.config.SpringContextUtil;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
@@ -7,6 +8,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -19,14 +21,19 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
 
     private Ehcache passwordRetryCache;
 
+    //用Springboot+ehcache后不能在构造方法中初始化。
     public RetryLimitHashedCredentialsMatcher() {
-        CacheManager cacheManager = CacheManager.newInstance(CacheManager.class.getClassLoader().getResource("ehcache.xml"));
-        passwordRetryCache = cacheManager.getCache("passwordRetryCache");
+        //CacheManager cacheManager = CacheManager.newInstance(CacheManager.class.getClassLoader().getResource("ehcache.xml"));
+        //passwordRetryCache = ehcacheManager.getCache("passwordRetryCache");
     }
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
+        EhCacheCacheManager cacheCacheManager= SpringContextUtil.getContext().getBean(EhCacheCacheManager.class);
+        CacheManager cacheManager=cacheCacheManager.getCacheManager();
+        passwordRetryCache = cacheManager.getCache("passwordRetryCache");
         String username = (String)token.getPrincipal();
+
         //retry count + 1
         Element element = passwordRetryCache.get(username);
         if(element == null) {
