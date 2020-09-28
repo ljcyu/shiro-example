@@ -39,12 +39,13 @@ public class ShiroConfig {
         return securityManager;
     }
 
+    //anon可以访问所有链接，所以这个不用配置。
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
         chainDefinition.addPathDefinition("/logout", "logout");
-        chainDefinition.addPathDefinition("/login", "anon");
-        chainDefinition.addPathDefinition("/logout", "anon");
-        chainDefinition.addPathDefinition("/unauthorized", "anon");
+        //chainDefinition.addPathDefinition("/login", "anon");
+        //chainDefinition.addPathDefinition("/logout", "anon");
+        //chainDefinition.addPathDefinition("/unauthorized", "anon");
         chainDefinition.addPathDefinition("/authenticated", "authc");
         chainDefinition.addPathDefinition("/role", "authc,roles[\"admin\"]");
         chainDefinition.addPathDefinition("/permission", "authc,perms[\"user:create\"]");
