@@ -1,6 +1,5 @@
 package chapter7.dao;
 
-import chapter7.util.JdbcTemplateUtils;
 import chapter7.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
